@@ -1,0 +1,25 @@
+input#search-input.form-control {
+    /*
+    border: 10px red !important;
+    border-radius: 2px;
+    */
+}
+
+/*ul { list-style-type: "🔔"; }
+ul { list-style-type: “🏌”; }*/
+
+ul.simple { list-style-type: "⛳️"; text-indent: 15px; }
+ul { list-style-type: "•"; text-indent: 15px; }
+
+/*
+.bd-sidebar {
+    border-right: 2px inset #711c87 !important;
+}
+*/
+
+div.body p, div.body dd, div.body li, div.body blockquote {
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}

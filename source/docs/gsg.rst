@@ -1,0 +1,212 @@
+.. _docref_puttshack_gsg:
+
+.. Puttshack documentation Poc1
+   Author: Shaloo Shalini
+   
+*********************
+Getting Started Guide
+*********************
+
+|product_name| are REST based interfaces that require API specific encoded request inputs and return JSON-encoded responses. Standard http response codes and verbs are used to implement |product_name|.
+
+This guide helps you get a quick overview of how Puttshack Cloud APIs can be used to develop web and mobile applications meant for Puttshack customers that are accessible as online service offerings.  In addition, these APIs can also be utilized to create an administrative dashboard or internal apps meant for internal use, by sales and marketing teams. The administrative interface can be used to track customer transactions, analyze service usage patterns, identify gaps in offerings as well as customer experience levels, response times and more.
+
+.. contents:: Getting Started
+     :local:
+
+----
+
+=========
+Overview
+=========
+
+|product_name| offer several categories of endpoints geared towards enabling various Puttshack services. Each service is built using one or more API workflows depending upon the service use case.  A workflow refers to a unique and well defined sequence of specific Puttshack API requests, followed by response handling and subsequent calls to the same or another bunch of APIs.
+
+The APIs can be invoked using tools such as Postman that refers to a test server deployment. Alternatively, these can also be invoked indirectly through a  web based application. The |product_name| are built using industry leading REST API practices and several well-known third party APIs that are secure, scalable and used by various other businesses for a superior customer experience.
+
+In the following sections, you will learn about Puttshack Online customer offerings, |product_name| functionality overview, various categories of |product_name| that can be used to create workflows and implement Puttshack services and offerings using these APIs. You can take a peek under the hood into the ecosystem powered by |product_name| such as, how it works, what third party APIs are used internally, how are notifications managed asynchronously through webhooks, the kind of customer data that is stored in the cloud database and can be used for business insights and analytics, etc.
+
+.. _ref_onl_cust_offerings:
+
+=========================
+Online Customer Offerings
+=========================
+
+Typically, Puttshack customers are expected to browse and purchase online customer offerings through web or mobile access. The customer self-service portal or mobile app can be used to perform any of these actions:
+
+.. include:: /common/ps_customer_actions.inc
+
+Every customer expects acceptable response time and transaction guarantees for these actions. Puttshack can use |product_name| to implement their offerings or services to address customer demands.  |product_name| are designed keeping customer experience in mind. The idea is to enhance Puttshack customer experience such that they feel encouraged to use other Puttshack offerings as well, driven by a seamless, enjoyable experience, enhanced by technology rather than inhibited by service delays and errors.
+
+|product_name| can be used to implement the following Puttshack offerings (and may be more in future):
+
+.. include:: /common/ps_services.inc
+
+=============
+Prerequisites
+=============
+
+Before you can start using the |product_name|, please ensure:
+
+* Authentication(?)
+* Any tools needed
+* Misc
+
+.. note::  |inputs_required|
+
+=============
+How it works?
+=============
+
+This section provides a high level overview of various components that make up Puttshack Cloud API ecosystem, their interactions and the use model.
+
+To address the customer requirements and Puttshack offerings listed in the :ref:`Online Customer Offerings<ref_onl_cust_offerings>` section above, |product_name| offers the following categories of APIs:
+
+.. _ref_prod_api_categories:
+
+--------------
+API Categories
+--------------
+
+.. include:: /common/api_categories.inc
+
+.. note::
+
+     To begin with, |product_name| Categories listed above are offered. In future, these may evolve to additional API categories depending upon Puttshack requirements.
+
+---------
+Use Model
+---------
+
+The Puttshack customers do not directly interact with the APIs.  They use the web applications, mobile apps or kiosk apps built by Puttshack IT Team and Developers. These applications offer various Puttshack services and use |product_name| to implement various use cases through API workflows.  The Puttshack Marketing and Sales team could use these APIs for reports and analytics and gathering Puttshack service usage insights and financial transaction patterns.  Alternately, the Puttshack IT Team and Developers could create in-house reporting apps that are tailored for Puttshack Marketing and Sales teams instead of having to invoke APIs for reports.
+
+-----------------
+System Components
+-----------------
+
+Figure below gives a quick snapshot of various components involved, their interactions and how the |product_name| actually work under the hood.  
+
+.. note::
+
+      Double click on the image to zoom in.
+
+.. figure:: /img/how_it_works.png
+   :align: center
+   :width: 100%
+   :figwidth: 100%
+   :alt: How-it-works
+
+   *Under the hood: Key components and interactions*
+
+You can see three kinds of user entities that interact with the services in this ecosystem:
+
+#. **Puttshack Marketing**:  Defines Puttshack online service offerings
+#. **Puttshack IT Team & Developers**: Implements Puttshack online service offerings based on definitions from marketing, sales teams. Leverages |product_name| to implement them as web or mobile applications.
+#. **Puttshack customers**:  Avails of various Puttshack online service offerings through the self-service portal or mobile app.
+
+There are five key components in the core Puttshack ecosystem:
+
+*  Marketing/Developer Access:
+*  The Cloud APIs  
+*  Information Store
+*  Third Party API 
+*  Webhook Integration
+
+Let us take a closer look at each of these components and how they interact with each other.
+
+---------------------------
+Marketing/Developer Access
+---------------------------
+
+The Marketing and Developer access refers to the interaction of Puttshack team with the |product_name|. The primary mechanism of interaction with |product_name| is through the endpoints. The interactions can be direct or indirect. Developers typically interact directly  with the endpoints as they use these APIs for implementing web applications and mobile apps that are used by Puttshack customers eventually.  Marketing and Sales folks can choose to interact directly via reporting APIs or indirectly through in-house web applications created by the developers using these same APIs.
+
+-----------
+Cloud APIs
+-----------
+
+Earlier, the document listed :ref:`various categories<ref_prod_api_categories>` of |product_name| APIs.  Each of those categories contains several API endpoints. Cloud API is a self contained component that offers several  **endpoints** as building blocks for Puttshack services. It integrates with third party APIs, stores customer, service usage, location, booking, reservation, player, food and music preferences, payments, perks and other related information in a cloud based datastore. 
+
+The Cloud API component uses webhooks to update information received regarding various service triggered API calls locally and provides that information when requested by the Puttshack service invoked by a customer action. Besides these functions, it acts as a storehouse or treasure trove of sorts that can be leveraged for rich business and marketing insights through reports and analytics. 
+
+.. note::
+
+     As there is no Admin dashboard, the webhook integration cannot be configured by Developers directly as of now.  The webhook bindings are taken care of in the Cloud API component. It may or may not be configurable via external interfaces as of now.
+
+-----------------
+Information Store
+-----------------
+
+The |product_name| use a cloud Database as its information store.  This database stores several pieces of important information related to various Puttshack service transactions such as bookings, players, locations, payment correlation etc. Another route through which this information store is accessed and updated are the webhook integration. The webhook integration of |product_name| with third party APIs results in certain notifications that require update in status or changes in the information stored in the cloud database.  
+
+All the database operations and handling is managed by the Cloud API component. None of the customer can get an access to this internal, private information store directly.  They can only access online service offerings to read information that they are allowed to. For example, customer player profile details, scores, perks, available locations etc.  When Puttshack customers use the online service offerings, their actions indirectly drive the database updates through workflows and service use cases implemented by Puttshack Developers and IT Team.  Only Puttshack IT Team and Developers have direct access to this information store.
+
+Figure below shows a sample of the information store schema and kinds of data that is stored, maintained therein.
+
+.. figure:: /img/ps_info_store_schema.png
+   :align: center
+   :width: 100%
+   :figwidth: 100%
+   :alt: Cloud db schema
+
+   *Details: Information Store Database Schema*
+
+.. note::
+
+     This is not the final schema but a working copy of the current implementation, subject to change.
+
+Next, we take a look at the third party API providers that are used by Cloud API component to render various workflows and endpoint functions.
+
+---------------------
+Third Party Providers
+---------------------
+
+|product_name|  utilizes various third party APIs to create workflows that can be used to build various Puttshack services.  The reason behind utilizing industry proven third party APIs is to ensure that Puttshack services are backed by scalable, responsive and efficient functionality offered by widely used by reliable API providers without spending unnecessary re-engineering effort where not required.
+
+The following table list the third party API Providers that are utilized by Puttshack Cloud APIs:
+
+.. include:: /common/ps_third_p.inc
+
+-------------------
+Webhook Integration
+-------------------
+
+Webhooks are mechanisms used by most third party API Providers to notify the API users when an event happens related to an account's API usage. These events are asynchronous, say for example, a payment APIs a webhook may be invoked if a bank confirms the payment, or if a customer disputes a charge or if a payment is declined.
+
+Webhook integration involves the following steps:
+
+* Defining a webhook endpoint at the Puttshack Cloud API server
+* Using the third party CLI to test invoke it
+* Registering the webhook with the third party provider for live/production setup
+
+Once the webhook is registered, the third party provider will notify Cloud APIs component when an event for which webhook was registered actually occurs. The webhook action taken by the Cloud API component may vary depending upon the kind of event. For example:
+
+* Update a customers perk enrollment status once they verify and opt-in.
+* Make adjustments to an invoice when it is created to accommodate gift cards or perks.
+* Update and link booking to a reservation once it is confirmed and notify the customer.
+
+In future, webhooks can also be used to provide information store state and API responses to Puttshack internal services or systems that need to be integrated and use customer data for services such as replication, analytics, or alerting.
+
+^^^^^^^^^^^^^^
+Why Webhooks?
+^^^^^^^^^^^^^^
+
+Most of the third party APIs are invoked in response to either a customer action or another API call as part of a service's workflow. The response to a request is immediately received and acted upon. The action may result in invoking another API or the same API.  However, there are cases when asynchronous events need to be communicated by the third party service provider to the service user - Puttshack Cloud API component, in this case. These asynchronous events require some action by the service user such as update in state, notify its users in turn or add new information, alerts in the Puttshack ecosystem.
+
+=====================
+How to use the APIs
+=====================
+
+.. note:: |inputs_required|
+
+   * Do we recommend any tools that Puttshack developers / IT team need to use
+   * Tutorials? (Future)
+
+================
+More Information
+================
+
+This guide provides an overview of |product_name|, its usage, how it works and key components involved. For further information, refer to the following documentation:
+
+  - :ref:`Product Use Cases<docref_puttshack_uc>`
+  - :ref:`Product Workflows<docref_puttshack_wf>`
+  - :ref:`Puttshack API Reference Guide<docref_puttshack_apiref>`

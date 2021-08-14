@@ -1,0 +1,55 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#404040'}, 'fontFamily': 'Montserrat', 'fontSize': 10}}%%
+
+        %% Puttshack Payment Workflow
+        %% Ref: https://miro.com/app/board/o9J_l6gQYVA=/
+        %% Author Shaloo Shalini <shalz@hotmail.com>
+
+        graph LR
+          Node0>"Trigger: <br/> Get reservation <br/>status, <br/>loyalty data, <br/>payment details"]:::wfref
+          Node1("1. <br/> POST <br/> api.puttshack.com/confirm"):::apinodefill
+          Node2{"2. <br/> Include <br/> loyalty <br/> discount?"}:::descfillcyan
+          Node3["3. <br/> Deduct <br/> loyalty <br/> credits"]:::descfillcyan
+          Node4["4. <br/> Process <br/> Payment"]:::descfillcyan
+          Node5{"5. <br/> Was payment <br/> successful?"}:::descfillcyan
+          Node6["6. <br/> Confirm <br/> reservation(s)"]:::descfillcyan
+          Node7("7. <br/> Return 422<br/> Payment Error"):::descfillor
+          Node8{"8. <br/> Does <br/> reservation <br/> include <br/> course?"}:::descfillcyan
+          Node9{"9. <br/> Does <br/>reservation <br/> include <br/> restaurant?"}:::descfillcyan
+          Node10["10. <br/> Confirm <br/> Puttshack reservation <br/>via API"]:::descfillcyan
+          Node11["11. <br/> Confirm <br/> OpenTable reservation <br/>via API"]:::descfillcyan
+          Node12{"12. <br/> Was <br/> Puttshack confirmation <br/> successful?"}:::descfillcyan
+          Node13{"13. <br/> Was <br/> OpenTable <br/> confirmation <br/> successful?"}:::descfillcyan
+          Node14["14. <br/> Update <br/> reservation <br/> details in<br/> Cloud DB"]:::descfill
+          Node15("15. <br/> Return 200 <br/> status w/ reservation details"):::apinodefill
+          Node16{"16. <br/> Is reservation <br/> for > 12 <br/> guests?"}:::descfill
+          Node17["17. <br/> Store request <br/> details in <br/> Tripleseat "]:::descfill
+          Node18["18. <br/> Void <br/> Payment"]:::descfillor
+          Node19{"19. <br/>Was <br/> OpenTable <br/> reservation, <br/> confirmed?"}:::descfillor
+          Node20["20. <br/> Cancel <br/> OpenTable <br/> Confirmation"]:::descfillor
+          Node21["21. <br/> Return 422 <br/> Puttshack <br/> Confirmatio Error"]:::descfillor
+
+          Node0 -.-> Node1
+          Node1 --> Node2 -- Yes --> Node3 --> Node4
+          Node2 -- No --> Node4 --> Node5 -- No --> Node7 --> Node1
+          Node5 -- Yes ----> Node6
+          Node6 --> Node8 --> Node10 --> Node12 -- Yes --> Node14
+          Node6 --> Node9 --> Node11 --> Node13 -- Yes --> Node14
+          Node14 --> Node15
+          Node14 --> Node16 -- Yes --> Node17
+          Node12 -- No --> Node18
+          Node13 -- No --> Node18
+          Node18 --> Node19
+          Node19 -- Yes --> Node20
+          Node19 -- No --> Node21
+          Node20 --> Node21
+
+          classDef wfref fill:black,stroke:black,color:white,stroke-width:2px
+          classDef apinodefill fill:#2686ec,stroke:2686ec,color:white,stroke-width:1px
+          classDef subgraphfill fill:white,stroke:white,color:black,stroke-width:1px
+          classDef descfill fill:#c4e633,stroke:#c4e633,color:black,stroke-width:2px
+          classDef descfillcyan fill:#1ec4ca,stroke:#1ec4ca,color:black,stroke-width:2px
+          classDef descfillor fill:#f7bd11,stroke:#f7bd11,color:black,stroke-width:2px
+          class a subgraphfill
+          class b subgraphfill
+          class c subgraphfill
+          class d subgraphfill

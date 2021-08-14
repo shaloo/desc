@@ -1,0 +1,60 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#404040'}, 'fontFamily': 'Montserrat', 'fontSize': 10}}%%
+
+        %% Puttshack Booking Workflow
+        %% Ref: https://miro.com/app/board/o9J_l6gQYVA=/
+        %% Author Shaloo Shalini <shalz@hotmail.com>
+
+        graph LR
+          Node1("1. <br/> GET <br/> api.puttshack.com/bookings"):::apinodefill
+          Node2["2. <br/> Request <br/> reservation <br/> with specified <br/> details"]:::descfillcyan
+          Node3["3. <br/> Request <br/> OpenTable <br/> Reservations"]:::descfillcyan
+          Node4["4. <br/> Request <br/> Puttshack <br/> Reservations <br/> (available courses)"]:::descfillcyan
+          Node5("5. <br/> Return 200 status <br/> with reservation <br/> availability"):::apinodefill
+          Node6("6. <br/> POST <br/> api.puttshack.com/bookings"):::apinodefill
+          Node7["7. <br/> Store <br/> request <br/> details <br/> in <br/> Tripleseat"]:::descfill
+          Node8["8. <br/> Store <br/> reservation <br/> request in <br/> Cloud DB"]:::descfill
+          Node9["9. <br/> Send <br/>request <br/>details to <br/>Sales Manager"]:::descfill
+          Node10("10. <br/> Return 200 <br/> Success Message"):::apinodefill
+          Node11["11. <br/> Hold <br/> Reservation(s)"]:::descfillcyan
+          Node12{"12. <br/> Does reservation <br/> include course?"}:::descfillcyan
+          Node13{"13. <br/> Does reservation <br/> include restaurant?"}:::descfillcyan
+          Node14["14. <br/> Request hold <br/> on Puttshack <br/> reservation <br/> via API"]:::descfillcyan
+          Node15["15. <br/> Request hold <br/> on OpenTable <br/> reservation <br/> via API"]:::descfillcyan
+          Node16{"16. <br/> Was Puttshack <br/> reservation confirmed?"}:::descfillcyan
+          Node17{"17. <br/> Was OpenTable <br/> reservation confirmed?"}:::descfillcyan
+          Node18["18. <br/> Store <br/> reservation details <br/> in Cloud DB"]:::descfill
+          Node19{"19. <br/> Was <br/> restaurant <br/> reservation <br/> successful?"}:::descfillcyan
+          Node20["20. <br/> Cancel <br/> restaurant <br/> reservation "]:::descfillor
+          Node21("21. <br/> Return 422 <br/> course Error"):::descfillor
+          Node22{"22. <br/> Was <br/> restaurant <br/> reservation <br/> successful?"}:::descfillcyan
+          Node23["23. <br/> Cancel <br/> restaurant <br/> reservation "]:::descfillor
+          Node24("24. <br/> Return 422 <br/> course Error"):::descfillor
+          Node25("25. <br/> Return 200 <br/> status w/ <br/> reservation, <br/> loyalty & <br/> payment details"):::apinodefill
+          Node26>"26. <br/> Payment <br/> Processing <br/> Workflow"]:::wfref
+
+
+          Node1 --> Node2 --> Node3 & Node4 --> Node5 -.-> Node6
+          Node6 -. 25 Guests or more .-> Node7 --> Node8 --> Node9 & Node10
+          Node6 -. 24 Guests or less .-> Node11
+          Node11 --> Node12 & Node13
+          Node12 -- Yes --> Node14 --> Node16 -- Yes -----> Node18
+          Node16 -- No --> Node19 -- Yes --> Node20
+          Node19 -- No --> Node21
+          Node20 --> Node21
+          Node13 -- Yes --> Node15 --> Node17 -- Yes --> Node18
+          Node17 -- No --> Node22
+          Node22 -- Yes --> Node23
+          Node22 -- No --> Node24
+          Node23 --> Node24
+          Node18 -.-> Node25 -.-> Node26
+
+          classDef wfref fill:black,stroke:black,color:white,stroke-width:2px
+          classDef apinodefill fill:#2686ec,stroke:2686ec,color:white,stroke-width:1px
+          classDef subgraphfill fill:white,stroke:white,color:black,stroke-width:1px
+          classDef descfill fill:#c4e633,stroke:#c4e633,color:black,stroke-width:2px
+          classDef descfillcyan fill:#1ec4ca,stroke:#1ec4ca,color:black,stroke-width:2px
+          classDef descfillor fill:#f7bd11,stroke:#f7bd11,color:black,stroke-width:2px
+          class a subgraphfill
+          class b subgraphfill
+          class c subgraphfill
+          class d subgraphfill

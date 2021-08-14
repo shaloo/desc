@@ -1,0 +1,65 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#404040'}, 'fontFamily': 'Montserrat', 'fontSize': 10}}%%
+
+        %% Puttshack RSVP Workflow
+        %% Ref: https://miro.com/app/board/o9J_l6gQYVA=/
+        %% Author Shaloo Shalini <shalz@hotmail.com>
+
+        graph LR
+          Node1( 1. <br/> GET <br/> api.puttshack.com/rsvp\reservation_id ):::apinodefill
+          Node2[ 2. <br/> Collect <br/> Reservation details <br/> from cloud DB ]:::descfill
+          Node3[ 3. <br/> Return 200 <br/> response with <br/> reservation and <br> RSVP details ]:::apinodefill
+          Node4{ 4. <br/> Updating <br/> current guest <br/> details? }:::descfill
+          Node5[ 5. <br/> POST <br/> api.puttshack.com/rsvp/reservation_id/guests ]:::apinodefill
+          Node6[ 6. <br/> POST <br/> api.puttshack.com/guests/guest_id/verify  ]:::apinodefill
+          Node7[ 7. <br/> Update <br/> confirmation status <br/> of RSVP <br/> in cloud DB ]:::descfill
+          Node8[ 8. <br/> Return 200 <br/> response<br/>  with updated guest<br/>  and rsvp details  ]:::apinodefill
+          Node9{ 9. <br/> Is this the <br/> lead booker? }:::descfill
+          Node10[ 10. <br/> Add notification <br/> for lead booker <br/> in queue ]:::descfill
+          Node11[ 11. <br/> Collect guest <br/> information <br/> for Cloud DB ]:::descfill
+          Node12[ 12. <br/> Create random <br/> verification code <br/> and store in Cloud DB ]:::descfill
+          Node13[ 13. <br/> Send verification <br/> code to guest's <br/> phone number ]:::descfillcyan
+          Node14{ 14. <br/> Was SMS <br/>message <br/>successful? }:::descfillcyan
+          Node15[ 15. <br/> Add notification <br/> with <br/> failed status <br/> in cloud DB ]:::descfillor
+          Node16( 16. <br/> Return 503 <br/> Status Code ):::descfillor
+          Node17( 17. <br/> Return 200 <br/> Status Code ):::apinodefill
+
+          Node1 --> Node2 --> Node3 -.-> Node4
+          Node4 -. No .-> Node5 --> Node7 --> Node9 -- Yes --> Node10
+          Node7 --> Node8
+          Node4 -. Yes .-> Node6 --> Node11 --> Node12 --> Node13 --> Node14 -- No --> Node15 --> Node16
+          Node14 -- Yes --> Node17 -.-> Node5
+
+          subgraph a [ ]
+             Node1
+             Node2
+             Node3
+          end
+
+          subgraph b[ ]
+            Node6
+            Node11
+            Node12
+            Node13
+          end
+          subgraph c [ ]
+            Node14
+            Node15
+            Node16
+            Node17
+          end
+          subgraph d [ ]
+            Node5
+            Node7
+            Node8
+            Node9
+            Node10
+          end
+          classDef apinodefill fill:#2686ec,stroke:2686ec,color:white,stroke-width:1px
+          classDef subgraphfill fill:white,stroke:white,color:black,stroke-width:1px
+          classDef descfill fill:#c4e633,stroke:#c4e633,color:black,stroke-width:2px
+          classDef descfillcyan fill:#1ec4ca,stroke:#1ec4ca,color:black,stroke-width:2px
+          classDef descfillor fill:#f7bd11,stroke:#f7bd11,color:black,stroke-width:2px
+          class a subgraphfill
+          class b subgraphfill
+          class c subgraphfill
+          class d subgraphfill

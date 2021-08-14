@@ -1,0 +1,35 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#404040'}, 'fontFamily': 'Montserrat', 'fontSize': 10}}%%
+
+        %% Puttshack How-it-works?
+        %% Author Shaloo Shalini <shalz@hotmail.com>
+
+        graph TD 
+          Node1( 1. <br/> GET <br/> api.puttshack.com/rsvp\reservation_id ):::apinodefill
+          Node2[ 2. Collect Reservation details <br/> from cloud DB ]:::descfill
+          Node3[ 3. Return 200 response with <br/> reservation and <br> RSVP details ]:::apinodefill
+          Node4{ 4. Updating <br/> current guest <br/> details? }:::descfill
+          Node5[ 5. <br/> POST <br/> api.puttshack.com/rsvp/reservation_id/guests ]:::apinodefill
+          Node6[ 6. <br/> POST <br/> api.puttshack.com/guests/guest_id/verify  ]:::apinodefill
+          Node7[ 7. Update confirmation status <br/> of RSVP in cloud DB ]:::descfill
+          Node8[ 8. Return 200 response<br/>  with updated guest<br/>  and rsvp details  ]:::apinodefill
+          Node9{ 9. Is this the lead booker? }:::descfill
+          Node10[ 10. Add notification <br/> for lead booker <br/> in queue ]:::descfill
+          Node11[ 11. Collect guest <br/> information <br/> for Cloud DB ]:::descfill
+          Node12[ 12. Create random <br/> verification code <br/> and store in Cloud DB ]:::descfill
+          Node13[ 13. Send verification <br/> code to guest's <br/> phone number ]:::descfillcyan
+          Node14{ 14. Was SMS <br/>message <br/>successful? }:::descfillcyan
+          Node15[ 15. Add notification <br/> with failed status <br/> in cloud DB ]:::descfillor
+          Node16( 16. Return 503 Status Code ):::descfillor
+          Node17( 17. Return 200 Status Code ):::apinodefill
+
+          Node1 --> Node2 --> Node3 -.-> Node4
+          Node4 -. No .-> Node5 --> Node7 --> Node9 -- Yes --> Node10
+          Node7 --> Node8
+          Node4 -. Yes .-> Node6 --> Node11 --> Node12 --> Node13 --> Node14 -- No --> Node15 --> Node16
+          Node14 -- Yes --> Node17 -.-> Node5
+          
+
+          classDef apinodefill fill:#2686ec,stroke:2686ec,color:white,stroke-width:1px
+          classDef descfill fill:#c4e633,stroke:#c4e633,color:black,stroke-width:2px
+          classDef descfillcyan fill:#1ec4ca,stroke:#1ec4ca,color:black,stroke-width:2px
+          classDef descfillor fill:#f7bd11,stroke:#f7bd11,color:black,stroke-width:2px
