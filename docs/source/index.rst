@@ -38,3 +38,4 @@ Here is a listing of some customer experiences and services that can be implemen
    docs/api_ref
    docs/thirdp_prov
    docs/reports
+   docs/concepts

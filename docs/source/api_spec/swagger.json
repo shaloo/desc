@@ -2,22 +2,42 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Puttshack Cloud API",
-    "description": " This is a test
+    "description": " Puttshack Cloud APIs offers an agile, scalable and responsive integration platform that can be used to build web-scale services.
 
-                     * to see if rst or 
+                     These REST APIs are meant for Puttshack IT Team and Developers. Using these APIs, they can create newer Puttshack web applications for Puttshack customers or internal use.  
+                    
 
-                     * if __markdown__ is supported
-
+                     Following categories of APIs are available as a start, more will follow:
 
                      ```
-                     code a
-                     code b
+
+                     Bookings
+
+                     Inventory
+                     
+                     Locations
+                     
+                     Payments
+                     
+                     Perks
+                     
+                     Players
+
+                     Reservations
+
                      ```
-                      
-                     This is a link -> [Node.js](https://nodejs.org/)
+
+                     Refer to [Puttshack Cloud API Documentation](https://cloud.puttshack.com/docs/index.html) for details.
+
+                     Until the documentation is deployed you can refer to the [local build](../index.html).
+                     
+                     ----
 
                    ",
-    "version": "1.0"
+    "version": "1.0",
+    "license": {
+        "name": "Descriptive. (C)",
+      }
   },
   "servers": [
     {
@@ -30,8 +50,8 @@
         "tags": [
           "Locations"
         ],
-        "summary": "Get list of Puttshack locations",
-        "description": "Test description",
+        "summary": "Get Puttshack locations.",
+        "description": "Obtain a list of available Puttshack [locations](../docs/concepts.html) from the cloud database. The response includes available time slots and courses.",
         "operationId": "getLocations",
         "parameters": [],
         "responses": {
@@ -56,13 +76,14 @@
         "tags": [
           "Bookings"
         ],
-        "summary": "List available bookings for date.",
+        "summary": "Get bookings list.",
+        "description": "Obtain a list of bookings for a specified location on a given date from the cloud database. The response contains details of booking in terms of time slot, user (booking host), location, reservation, payments and address information.",
         "operationId": "getBookings",
         "parameters": [
           {
             "in": "query",
             "name": "date",
-            "description": "The date to search for bookings number",
+            "description": "The date for which bookings need to be retrieved.",
             "required": true,
             "schema": {
               "type": "string"
@@ -71,7 +92,7 @@
           {
             "in": "query",
             "name": "location_id",
-            "description": "The location id to search for bookings",
+            "description": "The location identifier for which bookings need to be retrieved.",
             "required": true,
             "schema": {
               "type": "integer"
@@ -80,7 +101,7 @@
           {
             "in": "query",
             "name": "type",
-            "description": "The type of booking to search for",
+            "description": "The the type of bookings that need to be retrieved.",
             "required": false,
             "schema": {
               "type": "string"
@@ -89,7 +110,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A list of bookings",
+            "description": "A list of bookings for the given date, location id or type (if specified).",
             "content": {
               "application/json": {
                 "schema": {
@@ -108,9 +129,9 @@
           "Bookings"
         ],
         "summary": "Create a new booking request.",
+        "description": "A new booking can be created by specifying booking details such as the number of attendees, time slot for Teeing, Dining time, etc.",
         "operationId": "createBooking",
         "requestBody": {
-          "description": "The booking request",
           "content": {
             "application/json": {
               "schema": {
@@ -121,7 +142,7 @@
         },
         "responses": {
           "201": {
-            "description": "The booking request",
+            "description": "The response for the booking request.",
             "content": {
               "application/json": {
                 "schema": {
@@ -138,13 +159,14 @@
         "tags": [
           "Bookings"
         ],
-        "summary": "Get a booking",
+        "summary": "Get booking details.",
+        "description": "For a given booking identifier, retrieve the booking details from the cloud datastore.",
         "operationId": "getBooking",
         "parameters": [
           {
             "in": "path",
             "name": "booking_id",
-            "description": "The booking id",
+            "description": "The booking identifier for which details need to be retrieved.",
             "required": true,
             "schema": {
               "type": "integer"
@@ -153,7 +175,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The booking",
+            "description": "The booking details for the requested booking identifier.",
             "content": {
               "application/json": {
                 "schema": {
@@ -173,13 +195,14 @@
         "tags": [
           "Bookings"
         ],
-        "summary": "Update a booking request.",
+        "summary": "Update booking request.",
+        "description": "Once a booking is made, it can be updated later by specifying the booking identifier and the changes in terms of various booking details such as attendees, time etc.",
         "operationId": "updateBooking",
         "parameters": [
           {
             "in": "path",
             "name": "booking_id",
-            "description": "The booking id",
+            "description": "The booking identifier.",
             "required": true,
             "schema": {
               "type": "integer"
@@ -187,7 +210,6 @@
           }
         ],
         "requestBody": {
-          "description": "The update booking request",
           "content": {
             "application/json": {
               "schema": {
@@ -198,7 +220,7 @@
         },
         "responses": {
           "200": {
-            "description": "The update booking response",
+            "description": "The update booking response.",
             "content": {
               "application/json": {
                 "schema": {
@@ -215,13 +237,14 @@
         "tags": [
           "Bookings"
         ],
-        "summary": "List of reservations for a booking",
+        "summary": "List of reservations.",
+        "description": "For a given booking identifier, obtain a list of all the reservations made from the cloud datastore.",
         "operationId": "getBookingReservations",
         "parameters": [
           {
             "in": "path",
             "name": "booking_id",
-            "description": "The booking id",
+            "description": "The booking identifier.",
             "required": true,
             "schema": {
               "type": "integer"
@@ -230,7 +253,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A list of reservations",
+            "description": "A list of reservations.",
             "content": {
               "application/json": {
                 "schema": {
@@ -251,6 +274,7 @@
           "Players"
         ],
         "summary": "List of players for a booking",
+        "description": "Obtain a list of all the players and their details from the cloud datastore, based on the given booking identifier in the request.",
         "operationId": "getBookingPlayers",
         "parameters": [
           {
@@ -291,12 +315,13 @@
           "Payments"
         ],
         "summary": "Create a payment intent for a booking.",
+        "description": "Initiate a payment request for a given booking identifier and update the payment status in the cloud datastore along with transaction details.",
         "operationId": "createPayment",
         "parameters": [
           {
             "in": "path",
             "name": "booking_id",
-            "description": "The booking id to create a payment for",
+            "description": "The booking identifier",
             "required": true,
             "schema": {
               "type": "integer"
@@ -304,7 +329,6 @@
           }
         ],
         "requestBody": {
-          "description": "The payment intent request",
           "content": {
             "application/json": {
               "schema": {
@@ -315,7 +339,7 @@
         },
         "responses": {
           "201": {
-            "description": "The payment intent response",
+            "description": "The payment intent response details.",
             "content": {
               "application/json": {
                 "schema": {
@@ -332,13 +356,14 @@
         "tags": [
           "Payments"
         ],
-        "summary": "Update a payment intent status.",
+        "summary": "Update a payment intent for a booking.",
+        "description": "Make changes to a payment intent specified by the payment identifier in the request. These changes to the payment intent could be related to cancellation, payment failure or void processing in response to a third party payment provider webhook invocation. Or it could be initiated by the Puttshack customer or sales representative as part of cancellation process or addition of newer services to a booking or other changes in a booking.",
         "operationId": "updatePayment",
         "parameters": [
           {
             "in": "path",
             "name": "payment_id",
-            "description": "The payment id to update",
+            "description": "The payment identifier.",
             "required": true,
             "schema": {
               "type": "integer"
@@ -346,7 +371,6 @@
           },
         ],
         "requestBody": {
-          "description": "The payment intent request",
           "content": {
             "application/json": {
               "schema": {
@@ -357,7 +381,7 @@
         },
         "responses": {
           "200": {
-            "description": "The payment intent response",
+            "description": "The updated payment details.",
             "content": {
               "application/json": {
                 "schema": {
@@ -375,12 +399,13 @@
           "Reservations"
         ],
         "summary": "Update a reservation.",
+        "description": "Make changes to a confirmed booking or a reservation corresponding to the specified reservation_id",
         "operationId": "updateReservation",
         "parameters": [
           {
             "in": "path",
             "name": "reservation_id",
-            "description": "The reservation id",
+            "description": "The reservation identifier.",
             "required": true,
             "schema": {
               "type": "integer"
@@ -388,7 +413,6 @@
           }
         ],
         "requestBody": {
-          "description": "The update reservation request",
           "content": {
             "application/json": {
               "schema": {
@@ -399,7 +423,7 @@
         },
         "responses": {
           "200": {
-            "description": "The updated reservation",
+            "description": "The updated reservation details.",
             "content": {
               "application/json": {
                 "schema": {
@@ -417,9 +441,9 @@
           "Players"
         ],
         "summary": "Create a new player.",
+        "description": "Create a new Player Profile with the specified details in the request. You need to specify the unique booking identifier for the booking where this player would be an attendee or participant.",
         "operationId": "createPlayer",
         "requestBody": {
-          "description": "The create player request",
           "content": {
             "application/json": {
               "schema": {
@@ -430,7 +454,7 @@
         },
         "responses": {
           "201": {
-            "description": "The created players",
+            "description": "The newly created players.",
             "content": {
               "application/json": {
                 "schema": {
@@ -455,13 +479,14 @@
         "tags": [
           "Players"
         ],
-        "summary": "Update a player.",
+        "summary": "Update a player details.",
+        "description": "For a given player identifier, edit some of the player profile details as specified in the request.",
         "operationId": "updatePlayer",
         "parameters": [
           {
             "in": "path",
             "name": "player_id",
-            "description": "The player id to update",
+            "description": "The player identifier.",
             "required": true,
             "schema": {
               "type": "integer"
@@ -469,7 +494,7 @@
           }
         ],
         "requestBody": {
-          "description": "The update player request",
+          "description": "The update player request details.",
           "content": {
             "application/json": {
               "schema": {
@@ -480,7 +505,7 @@
         },
         "responses": {
           "200": {
-            "description": "The updated player",
+            "description": "The updated player details.",
             "content": {
               "application/json": {
                 "schema": {
@@ -498,9 +523,9 @@
           "Perks"
         ],
         "summary": "Verify perks phone number.",
+        "description": "As part of signing up process for loyalty and perks, initiate a Puttshack customer verification process via the specified phone number.",
         "operationId": "verifyPerks",
         "requestBody": {
-          "description": "The verification request",
           "content": {
             "application/json": {
               "schema": {
@@ -511,7 +536,7 @@
         },
         "responses": {
           "200": {
-            "description": "The verification request",
+            "description": "The verification request status response.",
             "content": {
               "application/json": {
                 "schema": {
@@ -534,9 +559,9 @@
           "Perks"
         ],
         "summary": "Confirm perks sign up.",
+        "description": "Acknowledge the code that the user shares as part of the Puttshack loyalty and perk sign up process and confirm perks enrollment.",
         "operationId": "confirmPerks",
         "requestBody": {
-          "description": "The perks confirmation request",
           "content": {
             "application/json": {
               "schema": {
@@ -547,7 +572,7 @@
         },
         "responses": {
           "200": {
-            "description": "The perks confirmation response",
+            "description": "The perks sign up confirmation response.",
             "content": {
               "application/json": {
                 "schema": {
@@ -793,15 +818,19 @@
         "type": "object",
         "properties": {
           "id": {
+            "description": "Location identifier.",
             "type": "integer"
           },
           "name": {
+            "description": "Location name.",
             "type": "string"
           },
           "open_time": {
+            "description": "Opening time.",
             "type": "string"
           },
           "close_time": {
+            "description": "Closing time.",
             "type": "string"
           },
           "courses": {
@@ -823,12 +852,15 @@
         "type": "object",
         "properties": {
           "id": {
+            "description": "Course identifier",
             "type": "integer"
           },
           "location_id": {
+            "description": "Location identifier.",
             "type": "integer"
           },
           "name": {
+            "description": "Course name.",
             "type": "string"
           },
           "location": {
@@ -845,18 +877,23 @@
         "type": "object",
         "properties": {
           "id": {
+            "description": "Payment identifier.",
             "type": "integer"
           },
           "booking_id": {
-            "type": "integer"
+            "type": "integer",
+            "description": "Booking identifier.",
           },
           "user_id": {
-            "type": "integer"
+            "type": "integer",
+            "description": "User (Booking host) identifier.",
           },
           "payment_type": {
-            "type": "string"
+            "type": "string",
+            "description": "Payment Type.",
           },
           "grand_total": {
+            "description": "Total payable amount.",
             "type": "number"
           },
           "sub_total": {
