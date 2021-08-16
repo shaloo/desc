@@ -9,7 +9,7 @@ Puttshack Cloud API Documentation
 
 *Welcome to Puttshack Cloud API documentation!*
 
-|product_name| offers an agile, scalable and responsive integration platform that can be used to build web-scale online products and services.
+|product_name| offers an agile, scalable and responsive integration platform that can be used to build scalable products and services.
 
 This documentation is targeted at *Puttshack Marketing Team* and *Developers* who intend to use |product_name| for enhancing Puttshack customer experience.
 
@@ -21,7 +21,7 @@ Here is a listing of some customer experiences and services that can be implemen
 
 .. include:: /common/ps_services.inc
 
-**Use Cases**:  This document presents a  high level overview of :ref:`Key product use cases<docref_puttshack_uc>` such as creating a new online customer service, enabling booking and reservations, modifying an already confirmed reservation, canceling a booking, purchasing or redeeming gift cards for Puttshack services etc.
+**Use Cases**:  This document presents a  high level overview of :ref:`Key product use cases<docref_puttshack_uc>` such as enabling booking and reservations, modifying an already confirmed reservation, canceling a booking, purchasing or redeeming gift cards for Puttshack services etc.
 
 **Workflows**:  Workflows refers to a collection of common API usage sequence. This document lists :ref:`Key API workflows<docref_puttshack_wf>` as simple flow chart diagrams for quick reference. The workflows capture a finer level of detail than the product use cases.  Some of the workflows may be common across several use cases. For example, :ref:`RSVP Workflow<ref_wf_rsvp>` may be common for event as well as gaming, food and drinks service booking use case. 
 

@@ -13,7 +13,7 @@ API Reference Guide
 
 This guide provides comprehensive list of Puttshack Cloud REST APIs.
 
-These APIs are meant for Puttshack IT Team and Developers. Using these APIs, they can create newer Puttshack web applications and mobile services for Puttshack customers.
+These APIs are meant for Puttshack IT Team and Developers. Using these APIs, they can create robust, scalable digital products for Puttshack customers.
 
 Besides that, these APIs can also be used (in future) for generating analytics and reports that could be useful for Puttshack executives.
 

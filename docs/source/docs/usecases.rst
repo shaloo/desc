@@ -9,7 +9,7 @@ Product Use Cases
 
 This document highlights key product use cases that Puttshack business requires to be accomplished by using |product_name|.
 
-These use cases also encapsulate the Puttshack customer stories or scenarios that need to be addressed eventually through these online service offerings.
+These use cases also encapsulate the Puttshack customer stories or scenarios that need to be addressed eventually through these digital customer service offerings.
 
 For clarity, we have categorized these use cases into two distinct types: business and system use cases.
 
@@ -28,7 +28,6 @@ Business Use Cases
 
 * List available Puttshack locations
 * Enable customer, kiosk operator initiated booking requests
-* Allow viewing and update of player profiles
 * Facilitate secure and fast online payments, cancellations
 * Notify customers regarding conversion of booking to a confirmed reservation
 * Enable customer to make changes to a reservation
@@ -40,10 +39,10 @@ Business Use Cases
 System Use Cases
 =================
 
-* Locations
+.. * Locations
 
-  - Obtain a list of current Puttshack locations from the information store
-  - Update the information store when a new location needs to be registered via some trigger.
+..  - Obtain a list of current Puttshack locations from the :ref:`Cloud Database<ref_gsg_cloud_database>`.
+..  - Update the cloud database when a new location needs to be registered via some trigger.
 
 * Bookings
 
@@ -59,7 +58,7 @@ System Use Cases
   - List all players registered for a booking.
   - Create a new player.
   - Update a players profile.
-  - Notify a player for a score update
+  - Notify players of their round after completing the course.
 
 * Payments
 
@@ -94,17 +93,3 @@ System Use Cases
   - Active users report to track active users, number of visits, services availed in a specified time frame.
   - Sales / Finance report with statistics related to transactions per location, total sales, total refunds, total taxes, average revenue per booking, most popular and least popular service offerings or packages.
   - Email delivery report listing email deliver statistics and engagements in case of promotional or transaction events.
-  
-.. warning::
-
-     Does this level of detail suffice to begin with or do we need to expand it further for each use case, say in terms of:
-
-     * Use case name
-     * description
-     * prerequisites
-     * flows
-     * exceptions
-     * post-conditions
-     * events or triggers
-
-     In the case of the latter (more details required), I'll need follow up calls with Chris to capture these insights in detail = more time, effort, resources. Hence the query/confirmation before going ahead in this direction.

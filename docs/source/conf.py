@@ -22,8 +22,8 @@ dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 # -- Project information -----------------------------------------------------
 
 project = 'Puttshack Cloud'
-copyright = '2021, Shaloo Shalini'
-author = 'Shaloo Shalini'
+copyright = '2021, Puttshack'
+author = 'Shaloo Shalini for Descriptive.'
 
 # The full version, including alpha/beta/rc tags
 release = ''

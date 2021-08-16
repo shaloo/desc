@@ -11,13 +11,13 @@
 Reports
 *********
 
-|product_name| reports  are meant to help you understand and reconcile the activity in Puttshack Cloud information store, analyze event and party host user actions, service usage and much more. You can view summary reports once there is enough data collected and slice, dice the data for business insights. 
+|product_name| reports  are meant to help you understand and reconcile the activity in Puttshack :ref:`cloud database<ref_gsg_cloud_database>`, analyze event and party host user actions, service usage and much more. You can view summary reports once there is enough data collected and slice, dice the data for business insights. 
 
 ========
 Overview
 ========
 
-|product_name| has a cloud based component that acts as the information store, known as Cloud Database (DB). This component is structured to store information in a database which can be used to handle daily processes (such as RSVP reminders), displaying profile information to users and reporting for Puttshack personnel. This documents provides an overview of the types of reports that can be generated with the current DB structure.
+|product_name| has a cloud based component that acts as the :ref:`Cloud Database (DB)<ref_gsg_cloud_database>`. This component is structured to store information in a database which can be used to handle daily processes (such as RSVP reminders), displaying profile information to users and reporting for Puttshack personnel. This documents provides an overview of the types of reports that can be generated with the current DB structure.
 
 .. contents:: Types of Reports
      :local:

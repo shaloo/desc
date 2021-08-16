@@ -2,6 +2,10 @@
 
 .. _docref_openapi_layout:
 
+.. spelling::
+
+      html
+
 ***************
 Puttshack APIs
 ***************

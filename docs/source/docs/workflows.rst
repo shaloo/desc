@@ -18,7 +18,7 @@ Puttshack API Workflows
 
 Workflow refers to a collection or unique set of API call sequences intended to achieve a specific objective related to a product use case. Some workflows may be commonly used across multiple use cases.
 
-This document gives a brief overview of |product_name| workflows that can be used by Puttshack Developers to implement one or more Puttshack online service offerings. Each workflow description comprises of a flow chart, followed by key stages of the workflow, error handling and a list of third party APIs used to implement the workflow.
+This document gives a brief overview of |product_name| workflows that can be used by Puttshack Developers to implement one or more Puttshack digital service offerings. Each workflow description comprises of a flow chart, followed by key stages of the workflow, error handling and a list of third party APIs used to implement the workflow.
 
 Here is a list of API workflows covered in this document:
 
@@ -55,13 +55,13 @@ Booking: Key Stages
 
 #. Use the booking details to check for reservation availability.
 
-#. To reserve for 24 guests or less, then hold the reservation. 
+#. To reserve for 23 guests or less, then hold the reservation. 
    
-   - If the reservation includes a course then request hold via Puttshack Reservation APIs. If reservation is confirmed then store details in cloud information store or cloud database and proceed with the :ref:`Payment Workflow<ref_wf_payment>`. If reservation is not confirmed, check whether restaurant reservation was successful, if not cancel the reservation and return 422 course error. 
+   - If the reservation includes a course then request hold via Puttshack Reservation APIs. If reservation is confirmed then store details in :ref:`cloud database<ref_gsg_cloud_database>` and proceed with the :ref:`Payment Workflow<ref_wf_payment>`. If reservation is not confirmed, check whether restaurant reservation was successful, if not cancel the reservation and return 422 course error. 
      
-   - If the reservation includes a restaurant, then request a hold via OpenTable APIs. If reservation via OpenTable is confirmed then store details in cloud information store or cloud database and proceed with the :ref:`Payment Workflow<ref_wf_payment>`. If reservation is not successful then cancel restaurant reservation and return 422 error.
+   - If the reservation includes a restaurant, then request a hold via `Reservation APIs (TBD)<ref_tpa_opentable>`. If reservation is confirmed then store details in cloud database and proceed with the :ref:`Payment Workflow<ref_wf_payment>`. If reservation is not successful then cancel restaurant reservation and return 422 error.
 
-#. To reserve for 25 guest or more, use Tripleseat APIs to store request details in Tripleseat and also update in cloud information store of cloud database. Return 200 success message and also share request details with Puttshack Sales Manager.
+#. To reserve for 24 guest or more, use Tripleseat APIs to store request details in Tripleseat and also update in cloud database. Return 200 success message and also share request details with Puttshack Sales Manager.
 
 ------------------------
 Booking: Error Handling
@@ -77,8 +77,8 @@ Booking: Third Party APIs used
 * Event Management: 
   
   - Locations, Bookings via :ref:`Tripleseat<ref_tpa_tripleseat>`
-  - Restaurant reservation for 24 guests of less via :ref:`OpenTable<ref_tpa_opentable>`
-  - All service reservations beyond 24 guest via :ref:`Tripleseat<ref_tpa_tripleseat>`
+  - Restaurant reservation for 23 guests of less via :ref:`Reservation API (Third Party)<ref_tpa_opentable>`
+  - All service reservations beyond 23 guest via :ref:`Tripleseat<ref_tpa_tripleseat>`
 
 .. _ref_wf_payment:
 
@@ -118,15 +118,15 @@ Payment: Key Stages
 
 #. Once the payment is successful, confirm reservation and check what all options are included in the booking.
 
-   - For course reservation, see if the Puttshack reservation API was successful and update reservation details in the cloud information store or cloud database. Otherwise, void the payment transaction, cancel the OpenTable Reservation (if it was an OpenTable reservation based booking) and return 422 Puttshack confirmation error.
+   - For course reservation, see if the Puttshack reservation API was successful and update reservation details in the cloud database. Otherwise, void the payment transaction, cancel the reservation (if it was implemented using `Reservation APIs (TBD)<ref_tpa_opentable>` based booking) and return 422 Puttshack confirmation error.
 
-   - For restaurant reservation, see if OpenTable reservation confirmation was received and update reservation details in the cloud information store or cloud database. Otherwise void the payment transaction, cancel the OpenTable Reservation (if it was an OpenTable reservation based booking) and return Puttshack confirmation error.
+   - For restaurant reservation, see if reservation confirmation was received and update reservation details in the cloud database. Otherwise void the payment transaction, cancel the reservation (if it was a reservation based on `Reservation APIs (TBD)<ref_tpa_opentable>` booking) and return Puttshack confirmation error.
 
 ------------------------
 Payment: Error Handling
 ------------------------
 
-If the payment processing fails, cancel all the third party based reservations - OpenTable for example.
+If the payment processing fails, cancel all the third party based reservations - `Reservation APIs (TBD)<ref_tpa_opentable>` ones for example.
 
 Use webhooks to get notified of third party API call events that could result in payment failure.
 
@@ -136,7 +136,7 @@ Payment: Third Party APIs used
 
 * Event Management: 
   
-  - Restaurant reservation for 24 guests or less via :ref:`OpenTable<ref_tpa_opentable>`
+  - Restaurant reservation for 23 guests or less via :ref:`Reservation APIs (TBD)<ref_tpa_opentable>`
 
 * Online Payments:
 
@@ -232,3 +232,4 @@ RSVP: Third Party APIs used
   
   - Emails via :ref:`Sendgrid<ref_tpa_sendgrid>`
   - SMS via :ref:`Twilio<ref_tpa_twilio>`
+  - Utilize Promotional loyalty points and perks, enroll into Perks (new users) via :ref:`Punch<ref_tpa_punchh>`

@@ -28,7 +28,7 @@
 
 .. _Tripleseat: https://support.tripleseat.com/hc/en-us/sections/200821727-Tripleseat-API
 .. |tripleseat_p| replace:: Event Management 
-.. |tripleseat_f| replace:: Locations, Bookings, Leads
+.. |tripleseat_f| replace:: Locations, Group Bookings, Leads
 .. _Punch: https://punchh.com/platform/
 .. |punch_p| replace:: Loyalty & Engagement
 .. |punch_f| replace:: Perks, Enrollment, Redemption
@@ -43,13 +43,13 @@
 .. |sendgrid_f| replace:: Emails, Promotions, Notifications
 .. _FocusPOS: https://www.focuspos.com
 .. |focuspos_p| replace:: Point of Sales
-.. |focuspos_f| replace:: Mobile, Self-Service Kiosk
+.. |focuspos_f| replace:: Table Management, Food Ordering, Payments (US)
 .. _TevalisPOS: https://website.tevalis.com/point-of-sale/
 .. |tevalis_p| replace:: Point of Sales
-.. |tevalis_f| replace:: Mobile, Self-Service Kiosk
+.. |tevalis_f| replace:: Table Management, Food Ordering, Payments (US)
 .. _GiftPro:  https://www.giftpro.co.uk
 .. |giftpro_p| replace:: Gifts
-.. |giftpro_f| replace:: Vouchers & Gift Cards
+.. |giftpro_f| replace:: Gift Vouchers (UK)
 .. _FocusGift: https://www.focuspos.com/myfocus/gift-card-program/
-.. |focusgift_p| replace:: Gifts
+.. |focusgift_p| replace:: Gift Cards (US)
 .. |focusgift_f| replace:: Vouchers & Gift Cards
