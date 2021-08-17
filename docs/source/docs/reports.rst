@@ -34,7 +34,7 @@ Based on a range determined by Puttshack (i.e., 30 days), a report can be genera
 Finance Reports
 ---------------
 
-Financial reports can be generated to provide an overview of transactions which took place in any of the Puttshack venues. Reports such as total sales, total refunds, total taxes, average revenue per booking and most popular packages can be generated with the payment details stored in the PSC database.
+Financial reports can be generated to provide an overview of transactions which took place in any of the Puttshack venues. Reports such as total sales, total refunds, total taxes, average revenue per booking and most popular packages can be generated with the payment details stored in the :ref:`cloud database<ref_gsg_cloud_database>`.
 
 ----------------------
 Email Delivery Reports

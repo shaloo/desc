@@ -66,7 +66,7 @@ The Punchh API will be utilized to store Perk membership sign ups, calculate and
 
 **User API**
 
-When a user chooses to sign up for a Perks membership, Puttshack Cloud API implementation will send over the lead booker’s information to store as a new user in the Punchh Platform. The loyalty membership identifier received from Punchh will be stored in the Puttshack `Cloud Database<ref_gsg_cloud_database>` for reference.
+When a user chooses to sign up for a Perks membership, the :ref:`PSC<ref_c_PSC>` will send over the lead booker’s information to store as a new user in the Punchh Platform. The loyalty membership identifier received from Punchh will be stored in the Puttshack `Cloud Database<ref_gsg_cloud_database>` for reference.
 
 -  `Create new user documentation <https://developers.punchh.com/pos-apis/point-of-sale/pos-create-user>`__
 
@@ -103,7 +103,7 @@ Payments
 Stripe
 ------
 
-Puttshack Cloud Payment API implementation will use Stripe to handle all payment transactions.  Stripe also provides a dashboard to allow admin users to void transactions or issue refunds. To assist in PCI-compliance, Stripe can be used to render the credit card portion of a form and will send a transaction key to the Puttshack Cloud API implementation server to verify that a payment was successful or unsuccessful.
+Puttshack Cloud Payment API implementation will use Stripe to handle all payment transactions.  Stripe also provides a dashboard to allow admin users to void transactions or issue refunds. To assist in PCI-compliance, Stripe can be used to render the credit card portion of a form and will send a transaction key to the :ref:`PSC<ref_c_PSC>` server to verify that a payment was successful or unsuccessful.
 
 **Payment Intents**
 
@@ -125,7 +125,7 @@ Communications
 Twilio
 ------
 
-Twilio’s API will be used to send out verification emails as part of Puttshack Cloud API implementation ecosystem when a member chooses to sign up for a Perks membership or attempts to sign in.
+Twilio’s API will be used to send out verification emails as part of :ref:`PSC<ref_c_PSC>` ecosystem when a member chooses to sign up for a Perks membership or attempts to sign in.
 
 To get notifications (email as well as SMS notifications) sent out via the API as quickly as possible, a scalable Puttshack Cloud API endpoint will be utilized so multiple SMS messages from the same location can be sent out in parallel without the need to create a queue that could possibly delay messages.
 
@@ -149,7 +149,7 @@ SendGrid is used to send out email communications to guests and/or perks members
 
 **Sending Mail**
 
-SendGrid allows its users to create email templates inside their dashboard. These templates can be stored so they may be used for outgoing messages from Puttshack Cloud API implementation server. Additional details from cloud database can be sent to fill in dynamic data such as the user’s name, game scores, etc.
+SendGrid allows its users to create email templates inside their dashboard. These templates can be stored so they may be used for outgoing messages from :ref:`PSC<ref_c_PSC>` server. Additional details from cloud database can be sent to fill in dynamic data such as the user’s name, game scores, etc.
 
 -  `Mail Send (Template) <https://docs.sendgrid.com/api-reference/mail-send/mail-send>`__
 
@@ -176,7 +176,7 @@ Focus / Tevalis
 
 Both FocusPOS and TevalisPOS provides methods to open a check via their API. Depending on the reservation system selected, integration with these POS systems may already be provided.
 
-However, if not, when Puttshack Cloud API implementation server gets and update through the reservation system that a reservation has been confirmed, it can open a check in the POS system automatically.
+However, if not, when :ref:`PSC<ref_c_PSC>` server gets and update through the reservation system that a reservation has been confirmed, it can open a check in the POS system automatically.
 
 -  `FocusPOS - Open a Check <https://api.focuspos.com/#43331c3f-aa89-4bcb-860e-e14a83afc6dd>`__
 -  `Tevalis - Create Reservation (Open a Table) <https://api.tevalis.com/Help/Api/POST-Reservation-CreateReservation-SiteID>`__

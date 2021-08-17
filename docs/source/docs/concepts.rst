@@ -9,7 +9,7 @@ Puttshack Concepts
 Locations
 =========
 
-Locations refers to places where Puttshack services are physically accessible and can be availed by Puttshack customers to plan events, gaming, party, food and drinks.  These locations could be either in UK or US.
+Locations refers to places or sites where Puttshack services are physically accessible and can be availed by Puttshack customers to plan events, gaming, party, food and drinks.  These locations could be either in UK or US.
 
 .. _ref_c_bookings:
 
@@ -25,4 +25,9 @@ Players
 
 A party or event host can specify details of the guest or 'players' who would be participating in a game.  These player profiles can be created, updated and scores tracked.
 
+.. _ref_c_PSC:
 
+Puttshack Cloud (PSC)
+=====================
+
+Puttshack Cloud or PSC refers to the Puttshack API implementation or the server where API endpoints are deployed and the :ref:`system processes<ref_gsg_sys_proc>` and :ref:`cloud database<ref_gsg_cloud_database>` are executed and managed.
