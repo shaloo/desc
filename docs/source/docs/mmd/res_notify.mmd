@@ -1,0 +1,45 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#404040'}, 'fontFamily': 'Montserrat', 'fontSize': 10}}%%
+
+        %% Puttshack Reservation Notify Workflow
+        %% Ref: https://miro.com/app/board/o9J_l6gQYVA=/
+        %% Author Shaloo Shalini <shalz@hotmail.com>
+
+        graph LR
+          Node1["1. <br/> Collect <br/> active notification <br/> campaigns"]:::descfill
+          Node2["2. <br/> Collect <br/> queued campaign <br/> messages"]:::descfill
+          Node3["3. <br/> Send out <br/> reservation <br/> confirmation <br/> message"]:::descfill
+          Node4{"4. <br/> What is the <br/> campaign communication <br/> type"}:::descfillcyan
+          Node5["5. <br/> Send <br/> Email confirmation <br/> message <br/> via SendGrid API"]:::descfill
+          Node6["6. <br/> Send <br/> SMS confirmation <br/> message <br/> via Twilio API"]:::descfill
+          Node7a{"7a. <br/> Was the <br/> Email notification message <br/> successful?"}:::descfillcyan
+          Node7b{"7b. <br/> Was the <br/> SMS notification message <br/> successful?"}:::descfillcyan
+          Node8["8. <br/> Update message <br/> with <br/> success status <br/> in <br/> cloud database"]:::descfill
+          Node9("9. <br/> User clicks <br/> on <br/> confirmation <br/> message <br/> in Email"):::descfillact
+          Node10("10. <br/> User replies <br/> with a 'Y' <br/> in SMS <br/> message"):::descfillact
+          Node11{"11. <br/> Mark message <br/> as confirmed in <br/> cloud database"}:::descfill
+          Node12("12. <br/> Send <br/> confirmation Email <br/> to the event host <br/> (lead booker)"):::apinodefill
+          Node13["13. <br/> Increment <br/> failed attempt in <br/> cloud database"]:::descfillor
+          Node14{"14. <br/> Is the <br/> failed attempt <br/> threshold <br/> reached?"}:::descfillor
+          Node15["15. <br/> Mark message as <br/> undeliverable in <br/> cloud database"]:::descfillor
+          Node16["16. <br/> Re-queue <br/> message"]:::descfillor
+
+          Node1 ---> Node2 --> Node3 --> Node4
+          Node4 -- Email --> Node5
+          Node4 -- SMS --> Node6
+          Node5 -- Yes --> Node7a ----> Yes --> Node8
+          Node6 -- Yes --> Node7b ----> Yes --> Node8
+          Node7a & Node7b --- No --> Node13 --> Node14
+          Node14 -- Yes --> Node15
+          Node14 -- No --> Node16 --> Node2
+          Node7a -.-> Node9
+          Node7b -.-> Node10
+          Node9 & Node10 --> Node11 --> Node12
+
+
+          classDef wfref fill:black,stroke:black,color:white,stroke-width:2px
+          classDef apinodefill fill:#2686ec,stroke:2686ec,color:white,stroke-width:1px
+          classDef subgraphfill fill:white,stroke:white,color:black,stroke-width:1px
+          classDef descfill fill:#c4e633,stroke:#c4e633,color:black,stroke-width:2px
+          classDef descfillcyan fill:#1ec4ca,stroke:#1ec4ca,color:black,stroke-width:2px
+          classDef descfillor fill:#f7bd11,stroke:#f7bd11,color:black,stroke-width:2px
+          classDef descfillact fill:#3234a2,stroke:#3234a2,color:white,stroke-width:2px

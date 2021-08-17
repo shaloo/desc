@@ -1,0 +1,42 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#404040'}, 'fontFamily': 'Montserrat', 'fontSize': 10}}%%
+
+        %% Puttshack Tripleseat event confirmation webhook flow chart
+        %% Author Shaloo Shalini <shalz@hotmail.com>
+
+        graph LR
+          Node1(" 1. <br/> POST <br/>api.puttshack.com/hooks/tripleseat"):::apinodefill
+          Node2[" 2. <br/>Store <br/>event details <br/>in <br/>Cloud Database"]:::descfill
+          Node3{" 3. <br/>Event Status <br/>changed to <br/>confirmed?"}:::descfillcyan
+          Node4[" 4. <br/>Add event <br/>to booking <br/>queue"]:::descfill
+          Node5(" 5. <br/> Return 200 <br/>success message"):::apinodefill
+          Node6[" 6. <br/>Collect <br/>queued bookings <br/> and <br/>process them"]:::descfill
+          Node7[" 7. <br/>Request <br/>reservation <br/> confirmation"]:::descfill
+          Node8{" 8. <br/>Does <br/>reservation  <br/>include <br/> restaurant?"}:::descfillcyan
+          Node9[" 9. <br/>Request <br/>OpenTable <br/> reservation <br/> via API"]:::descfill
+          Node10{" 10. <br/>Was <br/>restaurant  <br/>reservation <br/> successful?"}:::descfillcyan
+          Node11[" 11. <br/>Update<br/>Event <br/> in the <br/> Cloud Database"]:::descfill
+          Node12("12. <br/> Send <br/>restaurant<br/> confirmation<br/>to guest(s)"):::apinodefill
+          Node13{" 13. <br/>Does <br/>reservation  <br/>include <br/> golf?"}:::descfillcyan
+          Node14[" 9. <br/>Request <br/>Puttshack <br/> reservation <br/> via API"]:::descfill
+          Node15{" 15. <br/>Was <br/>golf  <br/>reservation <br/> successful?"}:::descfillcyan
+          Node16[" 16. Increment <br/>failed attempts <br/>in <br/>Cloud Database"]:::descfillor
+          Node17{" 17. Failed <br/>attempt <br/>threshold count <br/>reached?"}:::descfillor
+          Node18[" 18. Mark event <br/>with <br/>failed status"]:::descfillor
+          Node19(" 19. Send <br/> notification <br/>to <br/>Sales Manager"):::descfillor
+          Node20[" 20. Place event <br/>back <br/>into <br/>the queue"]:::descfillor
+
+          Node1 --> Node2 --> Node3 -- Yes --> Node4
+          Node3 -- No --> Node5
+          Node4 --> Node5
+          Node4 -.-> Node6 --> Node7 --> Node8 -- Yes --> Node9 --> Node10
+          Node10 & Node15 --- Yes --> Node11
+          Node7 --> Node13 --> Node14 --> Node15
+          Node11 --> Node12
+          Node10 & Node15 --- No --> Node16 --> Node17
+          Node17 -- Yes --> Node18 --> Node20 --> Node6
+          Node17 -- No --> Node19
+
+          classDef apinodefill fill:#2686ec,stroke:2686ec,color:white,stroke-width:1px
+          classDef descfill fill:#c4e633,stroke:#c4e633,color:black,stroke-width:2px
+          classDef descfillcyan fill:#1ec4ca,stroke:#1ec4ca,color:black,stroke-width:2px
+          classDef descfillor fill:#f7bd11,stroke:#f7bd11,color:black,stroke-width:2px

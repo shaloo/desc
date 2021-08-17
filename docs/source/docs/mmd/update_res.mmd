@@ -1,0 +1,54 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#404040'}, 'fontFamily': 'Montserrat', 'fontSize': 10}}%%
+
+        %% Puttshack Update Reservation Workflow
+        %% Ref: https://miro.com/app/board/o9J_l6gQYVA=/
+        %% Author Shaloo Shalini <shalz@hotmail.com>
+
+        graph LR
+          Node1("1. <br/> Confirmation  <br/> Email Sent <br/> to the guest(s)"):::apinodefill
+          Node2("2. <br/> Guest Clicks  <br/> on edit <br/> reservation link"):::descfillact
+          Node3("3. <br/> GET <br/> api.puttshackcloud.com/{reservation_id}"):::apinodefill
+          Node4["4. <br/> Collect <br/> reservation <br/> details"]:::descfill
+          Node5["5. <br/> Collect <br/> restaurant <br/> booking details"]:::descfill
+          Node6["6. <br/> Collect <br/> golf <br/> booking details"]:::descfill
+          Node7("7. <br/> Return 200 status <br/> with <br/> restaurant/golf <br/> reservation details"):::apinodefill
+          Node8("8. <br/> PUT <br/>api.puttshackcloud.com/{reservation_id}"):::apinodefill
+          Node9["9. <br/> Request update <br/>to <br/>reservation details"]:::descfill
+          Node10["10. <br/> Request update <br/>to <br/>Puttshack reservation"]:::descfillcyan
+          Node11["11. <br/> Request update <br/>to <br/>OpenTable reservation"]:::descfillcyan
+          Node12{"12. <br/> Was update to <br/> reservation <br/> successful?"}:::descfillcyan
+          Node13["13. <br/> Update <br/> reservation details <br/> in <br/> cloud database"]:::descfill
+          Node14{"14. <br/> Does reservation <br/> have RSVPs?"}:::descfillcyan
+          Node15{"15. <br/> Does update <br/> to booking <br/> require <br/> payment changes"}:::descfillcyan
+          Node16{"16. <br/> Will payment <br/> be refunded?"}:::descfillcyan
+          Node17("17. <br/> Return 200 status <br/> with <br/> updated booking <br/> and <br/> payment details"):::apinodefill
+          Node18["18. <br/> Queue <br/> updated <br/> event <br/> notification"]:::descfill
+          Node19["19. <br/> Process and <br/> send out <br/> queued event <br/> notifications"]:::descfill
+          Node20{"20. <br/> Was <br/> restaurant <br/> reservation <br/> successful?"}:::descfillor
+          Node21["21. <br/> Revert <br/> restaurant <br/> reservation <br/> update"]:::descfillor
+          Node22("22. <br/> Return 422 Error"):::descfillor
+
+          Node1 -.-> Node2 -.-> Node3 --> Node4
+          Node4 -- Reservation includes Restaurant --> Node5
+          Node4 -- Reservation includes golf --> Node6
+          Node5 & Node6 --> Node7 -.-> Node8 --> Node9
+          Node9 -- Reservation includes golf --> Node10
+          Node9 -- Reservation includes restaurant --> Node11
+          Node10 & Node11 --> Node12
+          Node12 -- Yes --> Node13 --> Node14
+          Node12 -- No --> Node20
+          Node14 -- No --> Node15
+          Node14 -- Yes --> Node18 -.-> Node19
+          Node15 -- Yes --> Node16
+          Node15 -- No --> Node17
+          Node18 --> Node15
+          Node20 -- Yes --> Node21
+          Node20 -- No --> Node22
+
+          classDef wfref fill:black,stroke:black,color:white,stroke-width:2px
+          classDef apinodefill fill:#2686ec,stroke:2686ec,color:white,stroke-width:1px
+          classDef subgraphfill fill:white,stroke:white,color:black,stroke-width:1px
+          classDef descfill fill:#c4e633,stroke:#c4e633,color:black,stroke-width:2px
+          classDef descfillcyan fill:#1ec4ca,stroke:#1ec4ca,color:black,stroke-width:2px
+          classDef descfillor fill:#f7bd11,stroke:#f7bd11,color:black,stroke-width:2px
+          classDef descfillact fill:#3234a2,stroke:#3234a2,color:white,stroke-width:2px

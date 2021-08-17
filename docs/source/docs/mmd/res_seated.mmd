@@ -1,0 +1,36 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#404040'}, 'fontFamily': 'Montserrat', 'fontSize': 10}}%%
+
+        %% Puttshack Reservation Seated Workflow
+        %% Ref: https://miro.com/app/board/o9J_l6gQYVA=/
+        %% Author Shaloo Shalini <shalz@hotmail.com>
+
+        graph LR
+          Node1("1. <br/> POST <br/> api.puttshack.com/hooks/reservations"):::apinodefill
+          Node2["2. <br/> Collect <br/> reservation details <br/> from <br/> Puttshack <br/> cloud database"]:::descfill
+          Node3["3. <br/> Place reservation <br/> into <br/> background <br/> queue"]:::descfill
+          Node4("4. <br/>  Return 200 success <br/> status message <br/> to <br/> OpenTable"):::apinodefill
+          Node5["5. <br/> Send request <br/> to <br/> venue POS"]:::descfill
+          Node6{"6. <br/> Venue <br/> Location"}:::descfillcyan
+          Node7["7. <br/> Send <br/> POST request <br/> to <br/> Tevalis endpoint<br/>  to open new ticket"]:::descfillcyan
+          Node8["8. <br/> Send <br/> POST request <br/> to <br/> FocusPOS <br/> /pos/checks endpoint"]:::descfillcyan
+          Node9{"9. <br/> Was check <br/> creation <br/> successful?"}:::descfillcyan
+          Node10["10. <br/> Update <br/> reservation status <br/> in <br/> Puttshack cloud database"]:::descfill
+          Node11["11. <br/> Send <br/> SMS alert <br/> to <br/> host station"]:::descfillor
+
+          Node1 ---> Node2 --> Node3 --> Node4 & Node5
+          Node5 --> Node6
+          Node6 -- UK --> Node7
+          Node6 -- US --> Node8
+          Node7 & Node8 --> Node9
+          Node9 -- Yes --> Node10
+          Node9 -- No --> Node11
+
+
+
+          classDef wfref fill:black,stroke:black,color:white,stroke-width:2px
+          classDef apinodefill fill:#2686ec,stroke:2686ec,color:white,stroke-width:1px
+          classDef subgraphfill fill:white,stroke:white,color:black,stroke-width:1px
+          classDef descfill fill:#c4e633,stroke:#c4e633,color:black,stroke-width:2px
+          classDef descfillcyan fill:#1ec4ca,stroke:#1ec4ca,color:black,stroke-width:2px
+          classDef descfillor fill:#f7bd11,stroke:#f7bd11,color:black,stroke-width:2px
+          classDef descfillact fill:#3234a2,stroke:#3234a2,color:white,stroke-width:2px
