@@ -27,6 +27,8 @@ Here is a listing of some customer experiences and services that can be implemen
 
 **API Reference**: Developers can find all low level details for each API in the :ref:`Puttshack API Reference Guide<docref_puttshack_apiref>`. It explains each API in terms of its expected inputs, input types, API response output and error codes that might show up. It is intended as a comprehensive reference book for creating various workflows that can be used to implement Puttshack services for various use cases.
 
+Besides these, refer to :ref:`Reports<docref_puttshack_reports>` for details on the kinds of reporting data that can be gathered and analyzed using |product_name|. A complete listing of all :ref:`Third Party API Providers<docref_puttshack_thirp_details>` that are utilized to implement |product_name| is also available.  The terminology and concepts related to |product_name| can be referred to in the :ref:`Concepts<docref_ps_concepts>` section.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents
